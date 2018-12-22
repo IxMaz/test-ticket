@@ -1,40 +1,15 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const moment = require("moment");
-const prefix = '#'
-
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
-client.user.setGame(`Magic 4 Ever`,"http://twitch.tv/S-F")
-  console.log('')
-  console.log('')
-  console.log('╔[═════════════════════════════════════════════════════════════════]╗')
-  console.log(`[Start] ${new Date()}`);
-  console.log('╚[═════════════════════════════════════════════════════════════════]╝')
-  console.log('')
-  console.log('╔[════════════════════════════════════]╗');
-  console.log(`Logged in as * [ " ${client.user.username} " ]`);
-  console.log('')
-  console.log('Informations :')
-  console.log('')
-  console.log(`servers! [ " ${client.guilds.size} " ]`);
-  console.log(`Users! [ " ${client.users.size} " ]`);
-  console.log(`channels! [ " ${client.channels.size} " ]`);
-  console.log('╚[════════════════════════════════════]╝')
-  console.log('')
-  console.log('╔[════════════]╗')
-  console.log(' Bot Is Online')
-  console.log('╚[════════════]╝')
-  console.log('')
-  console.log('')
 });
 
-
-
-
-
-
+client.on('message', msg => {
+  if (msg.content === 'ping') {
+    msg.reply('Pong!');
+  }
+});
 
 
 
@@ -52,12 +27,12 @@ client.user.setGame(`Magic 4 Ever`,"http://twitch.tv/S-F")
 
 client.on("message", (message) => {
     /// DREAM
-   if (message.content.startsWith("#new")) {     /// DREAM
+   if (message.content.startsWith("-bot")) {     /// DREAM
         const reason = message.content.split(" ").slice(1).join(" ");     /// DREAM
-        if (!message.guild.roles.exists("name", "Magic Team")) return message.channel.send(`لازم تسوي رتبة اسمها \`Magic Team\` وتنطي البوت ادمنيتر حتا يقدر يسوي الرومات ويعدل برمشنات`);
+        if (!message.guild.roles.exists("name", "Support Team")) return message.channel.send(`لازم تسوي رتبة اسمها \`Support Team\` وتنطي البوت ادمنيتر حتا يقدر يسوي الرومات ويعدل برمشنات`);
         if (message.guild.channels.exists("name", "ticket-{message.author.id}" + message.author.id)) return message.channel.send(`You already have a ticket open.`);    /// ALPHA CODES
         message.guild.createChannel(`ticket-${message.author.username}`, "text").then(c => {
-            let role = message.guild.roles.find("name", "Magic  Team");
+            let role = message.guild.roles.find("name", "Support  Team");
             let role2 = message.guild.roles.find("name", "@everyone");
             c.overwritePermissions(role, {
                 SEND_MESSAGES: true,
@@ -86,9 +61,9 @@ client.on("message", (message) => {
   if (message.content.startsWith("-close")) {
         if (!message.channel.name.startsWith(`ticket-`)) return message.channel.send(`You can't use the close command outside of a ticket channel.`);
  
-       message.channel.send(`هل انت متأكد من اقفالك للتذكرة اذا متأكد اكتب #confirm`)
+       message.channel.send(`هل انت متأكد من اقفالك للتذكرة اذا متأكد اكتب -done`)
            .then((m) => {
-               message.channel.awaitMessages(response => response.content === '#confirm', {
+               message.channel.awaitMessages(response => response.content === '-done', {
                        max: 1,
                        time: 10000,
                        errors: ['time'],
